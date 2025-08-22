@@ -1,0 +1,753 @@
+/* Estilos Generales y Fuentes */
+:root {
+    --color-fondo: #14181C;
+    --color-fondo-secundario: #1F252C;
+    --color-dorado: #D4AF37;
+    --color-texto-principal: #EAEAEA;
+    --color-texto-secundario: #9CA3AF;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    margin: 0;
+    background-color: var(--color-fondo);
+    color: var(--color-texto-principal);
+    overflow-x: hidden;
+    line-height: 1.6;
+}
+
+/* Animaciones */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes slideInRight {
+    from { opacity: 0; transform: translateX(50px); }
+    to { opacity: 1; transform: translateX(0); }
+}
+
+main, .contenido-historia {
+    animation: fadeIn 1s ease-out;
+}
+
+/* Header y Navegación */
+header {
+    background-color: var(--color-fondo-secundario);
+    padding: 1rem 5%;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.5);
+}
+
+nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo {
+    font-family: 'Playfair Display', serif;
+    font-size: 2rem;
+    color: var(--color-dorado);
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+}
+
+/* Estilos para el menú de hamburguesa */
+.menu-toggle {
+    display: none; /* Oculto por defecto en escritorio */
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    position: relative;
+    z-index: 1001;
+}
+
+.hamburger {
+    display: block;
+    width: 25px;
+    height: 3px;
+    background-color: var(--color-texto-principal);
+    margin: 5px 0;
+    transition: all 0.3s ease-in-out;
+}
+
+/* Estilos para el menú desplegable en móvil */
+.nav-links-container {
+    display: flex;
+    align-items: center;
+}
+
+nav ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    gap: 2rem;
+}
+
+nav a {
+    color: var(--color-texto-principal);
+    text-decoration: none;
+    font-size: 1.1rem;
+    position: relative;
+    transition: color 0.3s ease;
+}
+
+nav a::after {
+    content: '';
+    position: absolute;
+    bottom: -5px;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background-color: var(--color-dorado);
+    transition: width 0.3s ease;
+}
+
+nav a:hover::after {
+    width: 100%;
+}
+
+.redes-sociales {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    margin-left: 45px;
+}
+
+.redes-sociales svg path {
+    fill: var(--color-texto-principal);
+    transition: fill 0.3s ease;
+}
+
+.redes-sociales a:hover svg path {
+    fill: var(--color-dorado);
+}
+
+/* Película Principal - Ajuste principal para el layout */
+.pelicula-principal {
+    display: flex;
+    flex-direction: row; /* La fila se mantiene por defecto en pantallas grandes */
+    align-items: center;
+    justify-content: center;
+    padding: 4rem 5%;
+    gap: 3rem;
+    min-height: 80vh;
+}
+
+.pelicula-info {
+    max-width: 50%; /* Permite que ocupe la mitad del espacio */
+    text-align: left;
+    animation: slideInRight 1s ease-out;
+}
+
+.titulo-pelicula {
+    font-family: 'Playfair Display', serif;
+    font-size: 3.5rem;
+    color: var(--color-dorado);
+    margin-bottom: 0.5rem;
+    line-height: 1.2;
+}
+
+.sinopsis {
+    font-size: 1.1rem;
+    margin-bottom: 2rem;
+    word-wrap: break-word;
+    white-space: pre-wrap;
+}
+.sinopsiss{
+    word-wrap: break-word;
+    white-space: pre-wrap;
+}
+
+.meta-info, .funcion-info {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+    justify-content: flex-start; /* Alineación a la izquierda */
+    margin-bottom: 1.5rem;
+    flex-wrap: wrap;
+}
+
+.meta-info {
+    font-size: 1.1rem;
+    color: var(--color-texto-secundario);
+}
+
+.meta-info #pelicula-genero {
+    background-color: #334155;
+    padding: 0.3rem 0.8rem;
+    border-radius: 9999px;
+    font-weight: bold;
+    color: #e2e8f0;
+}
+
+.funcion-info {
+    background-color: rgba(30, 41, 59, 0.7);
+    padding: 1rem;
+    border-radius: 8px;
+    display: flex;
+    gap: 1rem;
+}
+
+.info-item {
+    text-align: left;
+}
+
+.info-item strong {
+    display: block;
+    color: var(--color-dorado);
+    font-size: 0.9rem;
+    margin-bottom: 0.25rem;
+}
+
+.info-item span {
+    font-size: 1.2rem;
+    font-weight: bold;
+}
+
+.boton-comprar, .boton-finalizar {
+    background-color: var(--color-dorado);
+    color: var(--color-fondo);
+    border: none;
+    padding: 1rem 2rem;
+    font-size: 1.2rem;
+    font-weight: bold;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.boton-comprar:hover, .boton-finalizar:hover {
+    background-color: #b89a30;
+    transform: translateY(-3px);
+}
+
+/* Carrusel de Imágenes */
+.poster-carousel {
+    position: relative;
+    max-width: 350px;
+    width: 100%;
+    height: 520px;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.7);
+    animation: fadeIn 1.5s ease-out;
+    flex-shrink: 0;
+}
+
+.carousel-images {
+    display: flex;
+    height: 100%;
+    transition: transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.carousel-images img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    flex-shrink: 0;
+}
+
+.carousel-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: rgba(0, 0, 0, 0.5);
+    color: white;
+    border: none;
+    cursor: pointer;
+    padding: 10px 15px;
+    border-radius: 50%;
+    font-size: 20px;
+    z-index: 10;
+    transition: background-color 0.3s, transform 0.3s;
+}
+
+.carousel-btn:hover {
+    background-color: rgba(0, 0, 0, 0.8);
+    transform: translateY(-50%) scale(1.1);
+}
+
+.carousel-btn.prev {
+    left: 10px;
+}
+
+.carousel-btn.next {
+    right: 10px;
+}
+
+.carousel-dots {
+    position: absolute;
+    bottom: 15px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 10px;
+    z-index: 10;
+}
+
+.carousel-dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background-color: rgba(255, 255, 255, 0.5);
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.carousel-dot.active {
+    background-color: white;
+    transform: scale(1.2);
+}
+
+/* Sección Proximamente */
+.proximamente-section {
+    padding: 4rem 5%;
+    text-align: center;
+    background-color: var(--color-fondo-secundario);
+}
+
+.proximamente-section h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 2.5rem;
+    color: var(--color-dorado);
+    margin-bottom: 2rem;
+}
+
+.proximos-estrenos-container {
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    flex-wrap: wrap;
+}
+
+.pelicula-futura {
+    width: 200px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+    border-radius: 8px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.5);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.pelicula-futura img {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+.pelicula-futura:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 15px 30px rgba(212, 175, 55, 0.3);
+}
+
+.pelicula-futura p {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    margin: 0;
+    padding: 1rem 0;
+    background-color: rgba(0, 0, 0, 0.7);
+    color: var(--color-texto-principal);
+    font-weight: bold;
+    font-size: 1rem;
+    transform: translateY(100%);
+    transition: transform 0.3s ease;
+}
+
+.pelicula-futura:hover p {
+    transform: translateY(0);
+}
+
+/* Estilos de la página de Historia */
+.contenido-historia {
+    padding: 4rem 15%;
+    text-align: center;
+}
+
+.contenido-historia h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: 3rem;
+    color: var(--color-dorado);
+}
+
+.contenido-historia h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 2rem;
+    color: var(--color-dorado);
+    margin-top: 3rem;
+    margin-bottom: 1.5rem;
+}
+
+.imagen-historia {
+    max-width: 100%;
+    width: 600px;
+    height: auto;
+    border-radius: 10px;
+    margin: 2rem 0;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.5);
+    transition: transform 0.4s ease;
+}
+
+.imagen-historia:hover {
+    transform: scale(1.02);
+}
+
+.contenido-historia p {
+    font-size: 1.1rem;
+    text-align: justify;
+    margin-bottom: 1.5rem;
+}
+
+.galeria-fotos {
+    margin-top: 4rem;
+    text-align: center;
+}
+
+.galeria-fotos h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 2.5rem;
+    color: var(--color-dorado);
+    margin-bottom: 2rem;
+}
+
+.galeria-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1.5rem;
+}
+
+.galeria-grid img {
+    width: 100%;
+    height: 220px;
+    object-fit: cover;
+    border-radius: 8px;
+    transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+.galeria-grid img:hover {
+    transform: scale(1.03);
+    opacity: 0.9;
+}
+
+/* Modal de Compra y QR */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1001;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0,0,0,0.8);
+    backdrop-filter: blur(5px);
+}
+
+#modal-iframe-trailer {
+display: block;
+border: none;
+width: 100%;
+aspect-ratio: 16 / 9;
+}
+.modal-contenido {
+    background-color: var(--color-fondo-secundario);
+    margin: 10% auto;
+    padding: 30px;
+    border: 1px solid #444;
+    width: 80%;
+    max-width: 500px;
+    border-radius: 10px;
+    animation: fadeIn 0.5s;
+    position: relative;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+}
+
+.cerrar {
+    color: #aaa;
+    position: absolute;
+    top: 15px;
+    right: 25px;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: color 0.3s ease;
+}
+
+.cerrar:hover, .cerrar:focus {
+    color: var(--color-dorado);
+}
+
+.selector-items .item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.selector-items label {
+    font-size: 1.1rem;
+}
+
+.selector-items input {
+    width: 60px;
+    padding: 5px;
+    font-size: 1rem;
+    background-color: #333;
+    color: #fff;
+    border: 1px solid #555;
+    border-radius: 5px;
+}
+
+.carrito {
+    margin-top: 30px;
+    border-top: 1px solid #444;
+    padding-top: 20px;
+}
+
+.carrito .total {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: var(--color-dorado);
+    text-align: right;
+    margin-top: 1rem;
+}
+
+#codigo-qr {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+    padding: 10px;
+    background-color: white;
+    border-radius: 5px;
+    animation: fadeIn 1s ease-out;
+}
+
+/* Footer */
+footer {
+    text-align: center;
+    padding: 3rem 5%;
+    background-color: var(--color-fondo-secundario);
+    border-top: 1px solid #333;
+    margin-top: 4rem;
+}
+
+.footer-contenido {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    gap: 2rem;
+    margin-bottom: 2rem;
+}
+
+.footer-info, .footer-mapa {
+    text-align: center;
+}
+
+.footer-info h3, .footer-mapa h3 {
+    font-family: 'Playfair Display', serif;
+    color: var(--color-dorado);
+    margin-bottom: 1rem;
+}
+
+.footer-mapa iframe {
+    border-radius: 8px;
+    max-width: 100%;
+}
+
+.footer-copyright {
+    text-align: center;
+    padding-top: 1rem;
+    border-top: 1px solid #333;
+    font-size: 0.9rem;
+    color: #888;
+}
+
+/* Estilo para el botón de compra cuando está deshabilitado */
+.boton-comprar.agotado {
+    background-color: #6c757d;
+    cursor: not-allowed;
+    box-shadow: none;
+    opacity: 0.8;
+    transform: none;
+}
+
+.boton-comprar.agotado:hover {
+    background-color: #6c757d;
+    transform: none;
+}
+.contenido-historia h3 {
+    color: var(--color-dorado);;
+}
+.acciones-pelicula {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+    margin-bottom: 2rem;
+}
+
+.boton-trailer,
+.boton-comprar {
+    border: 2px solid var(--color-dorado);
+    background-color: transparent;
+    color: var(--color-dorado);
+    padding: 0.9rem 1.8rem;
+    font-size: 1.1rem;
+    font-weight: bold;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+/* Efecto hover */
+.boton-trailer:hover,
+.boton-comprar:hover {
+    background-color: var(--color-dorado);
+    color: var(--color-fondo);
+    transform: scale(1.05);
+}
+
+/* Media query para móviles */
+@media (max-width: 768px) {
+    /* Menu de navegación */
+    nav {
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        padding: 1rem 5%;
+    }
+    #entradas-disponibles {
+        margin-right: 170px;
+    }
+    .menu-toggle {
+        display: block;
+    }
+
+    .nav-links-container {
+        position: fixed;
+        top: 0;
+        left: 0;
+        height: 100%;
+        width: 70%;
+        background-color: var(--color-fondo-secundario);
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 2rem;
+        transform: translateX(-100%);
+        transition: transform 0.4s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+        box-shadow: 2px 0 10px rgba(0,0,0,0.5);
+        z-index: 999;
+    }
+
+    .nav-links-container.active {
+        transform: translateX(0);
+    }
+    
+    .nav-links-container::after {
+        content: '';
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0,0,0,0);
+        backdrop-filter: blur(0px);
+        transition: background-color 0.4s, backdrop-filter 0.4s;
+        pointer-events: none;
+        z-index: -1;
+    }
+    
+    .nav-links-container.active::after {
+        background-color: rgba(0,0,0,0);
+        backdrop-filter: blur(5px);
+        pointer-events: auto;
+    }
+
+    /* Icono de hamburguesa a "X" */
+    .menu-toggle.active .hamburger:first-child {
+        transform: translateY(8px) rotate(45deg);
+    }
+    
+    .menu-toggle.active .hamburger:nth-child(2) {
+        opacity: 0;
+    }
+    
+    .menu-toggle.active .hamburger:last-child {
+        transform: translateY(-8px) rotate(-45deg);
+    }
+    
+    .nav-links-container ul {
+        flex-direction: column;
+        width: 100%;
+        text-align: left;
+        gap: 1.5rem;
+        margin-bottom: 2rem;
+    }
+
+    .redes-sociales {
+        justify-content: flex-start;
+        width: 100%;
+        margin-left: 0px
+    }
+    
+    /* Disposición de la película principal */
+    .pelicula-principal {
+        display: grid;
+        grid-template-areas:
+            "titulo"
+            "imagen"
+            "sinopsis"
+            "meta"
+            "funcion"
+            "acciones";
+        gap: 1.2rem;
+        text-align: center;
+    }
+    
+    .pelicula-info {
+        display: contents;
+    }
+    
+    .titulo-pelicula {
+        grid-area: titulo;
+    }
+    
+    .poster-carousel {
+        grid-area: imagen;
+        margin: 0 auto;
+        max-width: 300px;
+    }
+    
+    .meta-info, .funcion-info {
+        justify-content: center;
+    }
+
+    /* Los botones ocupan todo el ancho */
+    .acciones-pelicula {
+        flex-direction: column;
+        width: 100%;
+        gap: 1rem;
+    }
+    
+    .acciones-pelicula button {
+        grid-area: acciones;
+    }
+    .sinopsis {
+        grid-area: sinopsis;
+    }
+    .meta-info {
+        grid-area: meta;
+    }
+    .funcion-info {
+        grid-area: funcion;
+    }
+
+}
+

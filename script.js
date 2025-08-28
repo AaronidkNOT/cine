@@ -23,99 +23,6 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 });
 
-async function cargarPeliculaActual() {
-    try {
-        const response = await fetch('http://localhost:3000/api/pelicula-actual');
-        if (!response.ok) {
-            throw new Error('No se pudo cargar la película.');
-        }
-        
-        const pelicula = await response.json();
-        peliculaActualId = pelicula._id; // Guardamos el ID de la película actual
-        
-        actualizarInfoPelicula(pelicula);
-        iniciarCarrusel(pelicula);
-
-    } catch (error) {
-        console.error('Error al cargar la película:', error);
-        document.querySelector('.pelicula-info').innerHTML = '<h1>No hay película en cartelera</h1><p>Vuelve a intentar más tarde.</p>';
-        document.querySelector('.poster-carousel').innerHTML = '<div class="product-image-container no-image"><p>Sin imagen</p></div>';
-    }
-}
-
-// script.js
-// script.js
-async function cargarProximosEstrenos() {
-    const proximosEstrenosContainer = document.querySelector('.proximos-estrenos-container');
-    if (!proximosEstrenosContainer) return; // Evita errores si el contenedor no existe
-
-    try {
-        const response = await fetch('http://localhost:3000/api/proximos-estrenos');
-        if (!response.ok) {
-            throw new Error('No se pudo cargar los próximos estrenos.');
-        }
-
-        const estrenos = await response.json();
-        
-        if (estrenos.length === 0) {
-            proximosEstrenosContainer.innerHTML = '<p class="no-estrenos-mensaje">No hay estrenos próximos en este momento.</p>';
-            return;
-        }
-
-        proximosEstrenosContainer.innerHTML = ''; // Limpiar el contenedor antes de agregar los nuevos elementos
-
-        estrenos.forEach(estreno => {
-            const peliculaFutura = document.createElement('div');
-            peliculaFutura.classList.add('pelicula-futura');
-            
-            // Asigna el ID de la película para poder usarlo en la función de clic
-            peliculaFutura.dataset.id = estreno._id; 
-            
-            // Añade el evento de clic que llama a la nueva función
-            peliculaFutura.addEventListener('click', () => mostrarDetallesPelicula(estreno._id));
-
-            const fecha = new Date(estreno.fechaFuncion);
-            const opciones = { day: 'numeric', month: 'long' };
-            const fechaFormateada = fecha.toLocaleDateString('es-AR', opciones);
-            
-            peliculaFutura.innerHTML = `
-                <img src="http://localhost:3000/uploads/${estreno.imagenes[0]}" 
-                alt="Poster de ${estreno.titulo}">
-                <h3>${estreno.titulo}</h3>
-                <p>Estreno: ${fechaFormateada}</p>
-            `;
-            
-            proximosEstrenosContainer.appendChild(peliculaFutura);
-        });
-
-    } catch (error) {
-        console.error('Error al cargar próximos estrenos:', error);
-        proximosEstrenosContainer.innerHTML = '<p class="no-estrenos-mensaje">Error al cargar los estrenos. Intenta de nuevo más tarde.</p>';
-    }
-}
-
-function actualizarInfoPelicula(pelicula) {
-    document.querySelector('.titulo-pelicula').textContent = pelicula.titulo;
-    document.querySelector('.sinopsis').textContent = pelicula.descripcion;
-    document.getElementById('pelicula-genero').textContent = pelicula.genero || 'No especificado';
-    document.getElementById('pelicula-duracion').textContent = `${pelicula.duracion || 'N/A'}`;
-    document.getElementById('pelicula-clasificacion').textContent = `Clasificación: ${pelicula.clasificacionEdad || 'N/A'}`;
-    document.getElementById('pelicula-stock').textContent = pelicula.stock;
-    
-    // Formatear la fecha para que sea legible y amigable
-    if (pelicula.fechaFuncion) {
-        const fecha = new Date(pelicula.fechaFuncion);
-        const opciones = { weekday: 'long', day: 'numeric', month: 'long', hour: '2-digit', minute: '2-digit' };
-        document.getElementById('pelicula-fecha').textContent = fecha.toLocaleDateString('es-AR', opciones) + ' hs';
-    } else {
-        document.getElementById('pelicula-fecha').textContent = 'Fecha no definida';
-    }
-
-    const entradaLabel = document.querySelector('label[for="entradas"]');
-    if (entradaLabel) {
-        entradaLabel.textContent = `Entradas ($${pelicula.precio} c/u):`;
-        PRECIOS.entradas = pelicula.precio;
-    }
 
     //  Lógica para el botón de compra
     const botonComprar = document.querySelector('.boton-comprar');
@@ -128,7 +35,6 @@ function actualizarInfoPelicula(pelicula) {
         botonComprar.textContent = 'Comprar Entradas';
         botonComprar.classList.remove('agotado');
     }
-}
 
 // --- Lógica de compra segura y con descuento de stock ---
 async function finalizarCompra() {
@@ -235,43 +141,10 @@ document.querySelectorAll('#modal-compra input[type="number"]').forEach(input =>
 });
 // Funciones del modal de detalles
 
-async function mostrarDetallesPelicula(peliculaId) {
-    try {
-        const response = await fetch(`http://localhost:3000/api/pelicula/${peliculaId}`);
-        if (!response.ok) throw new Error('Película no encontrada.');
-        const pelicula = await response.json();
-
-        // Obtener la URL del tráiler y formatearla para incrustar
-        let trailerUrl = pelicula.trailer || '';
-        if (trailerUrl.includes("youtube.com/watch")) {
-            const videoId = trailerUrl.split('v=')[1];
-            trailerUrl = `https://www.youtube.com/embed/${videoId}`;
-        } else if (trailerUrl.includes("youtu.be/")) {
-            const videoId = trailerUrl.split('youtu.be/')[1].split('?')[0];
-            trailerUrl = `https://www.youtube.com/embed/${videoId}`;
-        }
-        
-        document.getElementById('modal-titulo').textContent = pelicula.titulo;
-        document.getElementById('modal-sinopsis').textContent = pelicula.descripcion;
-        document.getElementById('modal-genero').textContent = pelicula.genero;
-        document.getElementById('modal-duracion').textContent = pelicula.duracion;
-        document.getElementById('modal-clasificacion').textContent = pelicula.clasificacionEdad;
-        document.getElementById('modal-iframe-trailer').src = trailerUrl;
-
-        document.getElementById('modal-detalles').style.display = 'block';
-    } catch (error) {
-        console.error('Error al cargar detalles:', error);
-        alert('No se pudo cargar la información de la película.');
-    }
-}
 
 function verTrailerPrincipal() {
     // Si la película principal tiene un ID, reutiliza la función para mostrar los detalles
-    if (peliculaActualId) {
-        mostrarDetallesPelicula(peliculaActualId);
-    } else {
-        alert('No hay película en cartelera para ver el tráiler.');
-    }
+peliculaActualId = mostrarDetallesPelicula(peliculaActualId);
 }
 
 function cerrarModalDetalles() {
@@ -300,19 +173,6 @@ function iniciarCarrusel(pelicula) {
         dotsContainer.style.display = 'none';
         return;
     }
-
-    pelicula.imagenes.forEach((imgName, index) => {
-        const img = document.createElement('img');
-        img.src = `http://localhost:3000/uploads/${imgName}`;
-        img.alt = `Imagen ${index + 1} de ${pelicula.titulo}`;
-        imagesContainer.appendChild(img);
-
-        const dot = document.createElement('div');
-        dot.classList.add('carousel-dot');
-        dot.dataset.index = index;
-        if (index === 0) dot.classList.add('active');
-        dotsContainer.appendChild(dot);
-    });
 
     const dots = document.querySelectorAll('.carousel-dot');
     let currentIndex = 0;

@@ -723,6 +723,7 @@ footer {
         grid-area: imagen;
         margin: 0 auto;
         max-width: 300px;
+        
     }
     
     .meta-info, .funcion-info {
